@@ -1,6 +1,6 @@
-# PROJECT NAME HERE
+# Turtle Game
 
-by YOUR NAME HERE
+by Jayden.Mckinlay
 
 ## Project Description
 
