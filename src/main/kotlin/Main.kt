@@ -3,14 +3,37 @@ import java.awt.Color
 import java.awt.Font
 import javax.swing.*
 
+
+class Location(
+
+    val name:String,
+    val direction:String,
+    val left: Location,
+    val right: Location
+){
+    private val log = JPanel()
+    val places: MutableList<Location> = mutableListOf<Location>()
+
+    init{
+
+
+
+
+
+    }
+
+}
+
+
+
 /**
  * Application entry point
  */
 fun main() {
     FlatMacDarkLaf.setup()          // Initialise the LAF
 
-    val app = App()                 // Get an app state object
-    val window = MainWindow(app)    // Spawn the UI, passing in the app state
+    val game = Game()                 // Get an app state object
+    val window = MainWindow(game)    // Spawn the UI, passing in the app state
 
     SwingUtilities.invokeLater { window.show() }
 }
@@ -22,18 +45,9 @@ fun main() {
  * @property name the user's name
  * @property score the points earned
  */
-class App {
+class Game {
     var name = "Test"
-
-
-    fun scorePoints(points: Int) {
-
-    }
-
-    fun resetScore() {
-
-    }
-
+    val places: MutableList<Location> = mutableListOf<Location>()
 
 }
 
@@ -43,14 +57,14 @@ class App {
  *
  * @param app the app state object
  */
-class MainWindow(val app: App) {
+class MainWindow(val game: Game) {
     val frame = JFrame("WINDOW TITLE")
     private val panel = JPanel().apply { layout = null }
 
     private val titleLabel = JLabel("Turtle game")
-
-
-    private val clickButton = JButton("Click Me!")
+    private val gametext = JLabel("ergrnejwjng...")
+    private val leftButton = JButton("go left")
+    private val rightButton = JButton("go right")
 
 
     // Pass app state to dialog too
@@ -67,12 +81,17 @@ class MainWindow(val app: App) {
         panel.preferredSize = java.awt.Dimension(1200, 600)
 
         titleLabel.setBounds(500, -280, 1200, 600)
-        clickButton.setBounds(30, 150, 24, 24)
+        gametext.setBounds( 30, 60, 600, 600)
+        leftButton.setBounds(30, 150, 100, 50)
+        rightButton.setBounds(1070, 150, 100, 50)
+
 
 
         panel.add(titleLabel)
+        panel.add(gametext)
+        panel.add(leftButton)
+        panel.add(rightButton)
 
-        panel.add(clickButton)
 
     }
 
@@ -80,8 +99,13 @@ class MainWindow(val app: App) {
         titleLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 32)
 
 
-        clickButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
-        clickButton.background = Color(0xcc0055)
+        leftButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        leftButton.background = Color(0xcc0055)
+
+        rightButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        rightButton.background = Color(0xcc0055)
+
+
 
 
     }
@@ -95,7 +119,8 @@ class MainWindow(val app: App) {
     }
 
     private fun setupActions() {
-        clickButton.addActionListener { handleMainClick() }
+        leftButton.addActionListener { handleMainClick() }
+        rightButton.addActionListener { handleMainClick() }
 
     }
 
