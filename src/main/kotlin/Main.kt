@@ -4,22 +4,20 @@ import java.awt.Font
 import javax.swing.*
 
 
+
 class Location(
 
     val name:String,
-    val direction:String,
-    val left: Location,
-    val right: Location
+    val description:String
 ){
-    private val log = JPanel()
-    val places: MutableList<Location> = mutableListOf<Location>()
+    var left:Location? = null
+    var right:Location? = null
 
-    init{
-
-
-
-
-
+    fun connectRight(location: Location) {
+        right = location
+    }
+    fun connectLeft(location: Location) {
+        left = location
     }
 
 }
@@ -48,6 +46,27 @@ fun main() {
 class Game {
     var name = "Test"
     val places: MutableList<Location> = mutableListOf<Location>()
+
+    init {
+        //making locations-------------------------------------------------------
+        val log = Location("Grubby log", "it's horrible in here")
+        val beach = Location("Beach", "I see the water")
+        val grass = Location("open plain", " a lot of grass")
+
+        //adding to list ----------------------------------------------------------
+        places.add(log)
+        places.add(beach)
+        places.add(grass)
+
+        //connecting locations togiver left or right ----------------------------
+        log.connectRight(beach)
+        log.connectLeft(grass)
+
+    }
+
+
+
+
 
 }
 
@@ -119,23 +138,22 @@ class MainWindow(val game: Game) {
     }
 
     private fun setupActions() {
-        leftButton.addActionListener { handleMainClick() }
-        rightButton.addActionListener { handleMainClick() }
+        leftButton.addActionListener { handleLeftClick() }
+        rightButton.addActionListener { handleRightClick() }
 
     }
 
-    private fun handleMainClick() {
-                     // Update this window UI to reflect this
+    private fun handleLeftClick() {
+
+
+
     }
 
-    private fun handleInfoClick() {
+    private fun handleRightClick() {
 
     }
 
     fun updateUI() {
-
-
-
 
 
     }
