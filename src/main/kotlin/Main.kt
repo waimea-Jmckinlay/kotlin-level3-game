@@ -15,6 +15,7 @@ class Location(
 
     fun connectRight(location: Location) {
         right = location
+
     }
     fun connectLeft(location: Location) {
         left = location
@@ -28,13 +29,19 @@ class Location(
  * Application entry point
  */
 fun main() {
-    FlatMacDarkLaf.setup()          // Initialise the LAF
 
-    val game = Game()                 // Get an app state object
+
+
+    FlatMacDarkLaf.setup() // Initialise the LAF
+    val Location = Game().places[3]
+
+    val game = Game()                // Get an app state object
     val window = MainWindow(game)    // Spawn the UI, passing in the app state
 
     SwingUtilities.invokeLater { window.show() }
 }
+
+
 
 
 /**
@@ -47,21 +54,34 @@ class Game {
     var name = "Test"
     val places: MutableList<Location> = mutableListOf<Location>()
 
+    var currentLocation: Location
+
     init {
         //making locations-------------------------------------------------------
         val log = Location("Grubby log", "it's horrible in here")
         val beach = Location("Beach", "I see the water")
         val grass = Location("open plain", " a lot of grass")
+        val nest = Location("nest", "a bunch of cracked eggs")
 
         //adding to list ----------------------------------------------------------
         places.add(log)
         places.add(beach)
         places.add(grass)
+        places.add(nest)
 
         //connecting locations togiver left or right ----------------------------
         log.connectRight(beach)
         log.connectLeft(grass)
+        nest.connectRight(log)
 
+        currentLocation = nest
+    }
+
+    fun moveLeft() {
+        currentLocation = currentLocation.left!!
+    }
+    fun moveRight() {
+        currentLocation = currentLocation.right!!
     }
 
 
@@ -81,7 +101,8 @@ class MainWindow(val game: Game) {
     private val panel = JPanel().apply { layout = null }
 
     private val titleLabel = JLabel("Turtle game")
-    private val gametext = JLabel("ergrnejwjng...")
+    private val gametext = JLabel("")
+    private val clue = JLabel("")
     private val leftButton = JButton("go left")
     private val rightButton = JButton("go right")
 
@@ -101,6 +122,7 @@ class MainWindow(val game: Game) {
 
         titleLabel.setBounds(500, -280, 1200, 600)
         gametext.setBounds( 30, 60, 600, 600)
+        clue.setBounds( 30,120,600,600)
         leftButton.setBounds(30, 150, 100, 50)
         rightButton.setBounds(1070, 150, 100, 50)
 
@@ -108,6 +130,7 @@ class MainWindow(val game: Game) {
 
         panel.add(titleLabel)
         panel.add(gametext)
+        panel.add(clue)
         panel.add(leftButton)
         panel.add(rightButton)
 
@@ -145,15 +168,24 @@ class MainWindow(val game: Game) {
 
     private fun handleLeftClick() {
 
+        game.moveLeft()
+        updateUI()
 
 
     }
 
     private fun handleRightClick() {
+        game.moveRight()
+        updateUI()
+
+
 
     }
 
     fun updateUI() {
+        titleLabel.text = game.currentLocation.name
+        gametext.text = game.currentLocation.description
+
 
 
     }
