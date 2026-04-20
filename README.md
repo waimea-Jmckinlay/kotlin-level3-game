@@ -4,11 +4,8 @@ by Jayden.Mckinlay
 
 ## Project Description
 
-**PLACE YOUR PROJECT DESCRIPTION HERE**
-**PLACE YOUR PROJECT DESCRIPTION HERE**
-**PLACE YOUR PROJECT DESCRIPTION HERE**
-**PLACE YOUR PROJECT DESCRIPTION HERE**
-**PLACE YOUR PROJECT DESCRIPTION HERE**
+a Game where you are a turtle trying to get back to the oceon you get to deside which path to take
+to get to the oceon but some paths will kill you
 
 ---
 
@@ -34,6 +31,6 @@ The project is written in the [Kotlin](https://kotlinlang.org) programming langu
 - Using non-core API, library or framework
 - Using complex data structures (e.g. stacks, queues, trees)
 
-**EDIT LIST ABOVE TO MATCH YOUR PROJECT**
+
 
 

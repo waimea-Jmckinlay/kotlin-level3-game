@@ -34,7 +34,7 @@ fun main() {
 
 
     FlatMacDarkLaf.setup() // Initialise the LAF
-    Game().places[3]
+    Game().places[0]
 
     val game = Game()                // Get an app state object
     val window = MainWindow(game)    // Spawn the UI, passing in the app state
@@ -49,7 +49,7 @@ fun main() {
  * Manage app state
  *
  * @property name the user's name
- * @property score the points earned
+ * @property Game the game
  */
 class Game {
     var name = "Test"
@@ -62,20 +62,23 @@ class Game {
         val log = Location("Grubby log", "it's horrible in here wet and slim... whats that?")
         val beach = Location("Beach", " you see the water but your not there yet")
         val grass = Location("open plain", " a lot of grass and bees")
-        val nest = Location("nest", "a bunch of cracked eggs, you see the oceon and lots of seagulls")
+        val nest = Location("nest", "a bunch of cracked eggs, you see the oceon and lots of seagulls lets not go that way right now")
+        val Nest = Location("nest", "a bunch of cracked eggs, the oceon is as you rember it from before but theirs a lot less seagulls")
         val win = Location("oceon", " you made it to the oceon", true)
-        val lose = Location("not the oceon","you died seagulls gotta hate them", true)
+        val lose = Location("not the oceon","you died seagulls, gotta hate them", true)
         val water = Location("water", "a lot of water all most there")
         val tree = Location("tree", " A very tall tree or are you just very small you can hear foxes")
         val sand = Location("sand and seagulls","this was a bad idea right now " )
         val bigTree = Location("bigTree", " this one is much bigger that you " )
-        val fox =Location("for","you where eatenby the fox",true)
+        val fox = Location("fox","you where eaten by the fox",true)
 
         //adding to list ----------------------------------------------------------
+
+        places.add(nest)
+        places.add(Nest)
         places.add(log)
         places.add(beach)
         places.add(grass)
-        places.add(nest)
         places.add(win)
         places.add(lose)
         places.add(water)
@@ -90,7 +93,19 @@ class Game {
         sand.connectRight(lose)
         sand.connectLeft(lose)
         grass.connectLeft(tree)
-        grass.connectLeft(log)
+        grass.connectRight(log)
+        tree.connectLeft(bigTree)
+        tree.connectRight(log)
+        bigTree.connectLeft(fox)
+        bigTree.connectRight(log)
+        log.connectRight(Nest)
+        log.connectLeft(bigTree)
+        Nest.connectLeft(beach)
+        Nest.connectRight(grass)
+        beach.connectLeft(lose)
+        beach.connectRight(water)
+        water.connectLeft(lose)
+        water.connectRight(win)
 
 
 
@@ -100,16 +115,14 @@ class Game {
 
         currentLocation = nest
     }
-
     fun moveLeft() {
         currentLocation = currentLocation.left!!
     }
     fun moveRight() {
         currentLocation = currentLocation.right!!
     }
-
     fun moveHome() {
-        currentLocation = places[3]
+        currentLocation = places[0]
     }
 
 
@@ -151,7 +164,7 @@ class MainWindow(val game: Game) {
     private fun setupLayout() {
         panel.preferredSize = java.awt.Dimension(1200, 600)
 
-        titleLabel.setBounds(550, -280, 1200, 600)
+        titleLabel.setBounds(0, 0, 1200, 100)
         gametext.setBounds( 30, 60, 1200, 600)
         clue.setBounds( 30,120,600,600)
         leftButton.setBounds(30, 150, 100, 50)
@@ -172,6 +185,7 @@ class MainWindow(val game: Game) {
 
     private fun setupStyles() {
         titleLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 50)
+        titleLabel.horizontalAlignment = SwingConstants.CENTER
 
         gametext.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
 
@@ -235,11 +249,15 @@ class MainWindow(val game: Game) {
 
         if (game.currentLocation.death == true) {
 
+            leftButton.isEnabled = false
+            rightButton.isEnabled = false
             returnButton.isEnabled = true
 
         }
         else{
             returnButton.isEnabled = false
+            rightButton.isEnabled = true
+            leftButton.isEnabled = true
         }
 
 
@@ -263,7 +281,7 @@ class MainWindow(val game: Game) {
 
 
 class End(val owner: MainWindow, val game: Game) {
-    private val dialog = JDialog(owner.frame, "DIALOG TITLE", false)
+    private val dialog = JDialog(owner.frame, "Look", false)
     private val panel = JPanel().apply { layout = null }
 
     private val win = JLabel()
