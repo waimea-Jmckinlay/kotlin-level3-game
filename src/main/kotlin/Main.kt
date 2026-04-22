@@ -9,6 +9,7 @@ class Location(
 
     val name:String,
     val description:String,
+    val imageFile:String,
     var death: Boolean = false
 ){
     var left:Location? = null
@@ -59,18 +60,18 @@ class Game {
 
     init {
         //making locations-------------------------------------------------------
-        val log = Location("Grubby log", "it's horrible in here wet and slim... whats that?")
-        val beach = Location("Beach", " you see the water but your not there yet")
-        val grass = Location("open plain", " a lot of grass and bees")
-        val nest = Location("nest", "a bunch of cracked eggs, you see the oceon and lots of seagulls lets not go that way right now")
-        val Nest = Location("nest", "a bunch of cracked eggs, the oceon is as you rember it from before but theirs a lot less seagulls")
-        val win = Location("oceon", " you made it to the oceon", true)
-        val lose = Location("not the oceon","you died seagulls, gotta hate them", true)
-        val water = Location("water", "a lot of water all most there")
-        val tree = Location("tree", " A very tall tree or are you just very small you can hear foxes")
-        val sand = Location("sand and seagulls","this was a bad idea right now " )
-        val bigTree = Location("bigTree", " this one is much bigger that you " )
-        val fox = Location("fox","you where eaten by the fox",true)
+        val log = Location("Grubby log","it's horrible in here wet and slim... whats that?", "images/log.png")
+        val beach = Location("Beach", " you see the water but your not there yet", "images/beach.png")
+        val grass = Location("open plain", " a lot of grass and bees", "images/grass.png")
+        val nest = Location("nest", "a bunch of cracked eggs, you see the oceon and lots of seagulls lets not go that way right now", "images/nest.png")
+        val Nest = Location("nest", "a bunch of cracked eggs, the oceon is as you rember it from before but theirs a lot less seagulls", "images/nest.png")
+        val win = Location("oceon", " you made it to the oceon play again?", "images/ocean.png", true)
+        val lose = Location("not the oceon","you died seagulls, gotta hate them", "images/log.png", true)
+        val water = Location("water", "a lot of water all most there", "images/water.png")
+        val tree = Location("tree", " A very tall tree or are you just very small you can hear foxes", "images/tree.png")
+        val sand = Location("sand and seagulls","this was a bad idea right now ", "images/sand.png" )
+        val bigTree = Location("bigTree", " this one is much bigger that you ", "images/biggerTree.png" )
+        val fox = Location("fox","you where eaten by the fox", "images/fox.png",true)
 
         //adding to list ----------------------------------------------------------
 
@@ -87,7 +88,7 @@ class Game {
         places.add(bigTree)
         places.add(fox)
 
-        //connecting locations togiver left or right ----------------------------
+        //connecting locations togiver left or right -------------------------------
         nest.connectRight(sand)
         nest.connectLeft(grass)
         sand.connectRight(lose)
@@ -104,13 +105,9 @@ class Game {
         Nest.connectRight(grass)
         beach.connectLeft(lose)
         beach.connectRight(water)
-        water.connectLeft(lose)
+        water.connectLeft(beach)
         water.connectRight(win)
-
-
-
-
-        //-----------------------------------------------------------------------
+        //-------------------------------------------------------------------------
 
 
         currentLocation = nest
@@ -143,12 +140,13 @@ class MainWindow(val game: Game) {
 
     private val titleLabel = JLabel("Turtle game")
     private val gametext = JLabel("")
-    private val clue = JLabel("")
+    private val piclable =JLabel()
+
     private val leftButton = JButton("go left")
     private val rightButton = JButton("go right")
     private val returnButton = JButton("return to start")
 
-    private val end = End(this, game)
+
 
 
     // Pass app state to dialog too
@@ -162,20 +160,20 @@ class MainWindow(val game: Game) {
     }
 
     private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(1200, 600)
+        panel.preferredSize = java.awt.Dimension(640, 700)
 
-        titleLabel.setBounds(0, 0, 1200, 100)
-        gametext.setBounds( 30, 60, 1200, 600)
-        clue.setBounds( 30,120,600,600)
-        leftButton.setBounds(30, 150, 100, 50)
-        rightButton.setBounds(1070, 150, 100, 50)
-        returnButton.setBounds(500, 400, 200, 50)
+        titleLabel.setBounds(20, 20, 600, 50)
+        gametext.setBounds( 20, 510, 600, 100)
+        piclable.setBounds( 20, 90, 600, 480)
+        leftButton.setBounds(20, 630, 200, 50)
+        rightButton.setBounds(420, 630, 200, 50)
+        returnButton.setBounds(220, 630, 200, 50)
 
 
 
         panel.add(titleLabel)
         panel.add(gametext)
-        panel.add(clue)
+        panel.add(piclable)
         panel.add(leftButton)
         panel.add(rightButton)
         panel.add(returnButton)
@@ -188,16 +186,22 @@ class MainWindow(val game: Game) {
         titleLabel.horizontalAlignment = SwingConstants.CENTER
 
         gametext.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        gametext.horizontalAlignment = SwingConstants.CENTER
+
+
+        piclable.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        piclable.horizontalAlignment = SwingConstants.CENTER
 
 
         leftButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
-        leftButton.background = Color(0xcc0055)
+        leftButton.background = Color(0xcc00447)
 
         rightButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
-        rightButton.background = Color(0xcc0055)
+        rightButton.background = Color(0xcc00447)
 
         returnButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
-        returnButton.background = Color(0xcc0055)
+        returnButton.background = Color(0x0029CCFF)
+
 
 
 
@@ -230,7 +234,7 @@ class MainWindow(val game: Game) {
 
     private fun handleRightClick() {
         game.moveRight()
-        end.show()
+
 
         updateUI()
 
@@ -243,25 +247,31 @@ class MainWindow(val game: Game) {
         updateUI()
     }
 
+
     fun updateUI() {
         titleLabel.text = game.currentLocation.name
-        gametext.text = game.currentLocation.description
+        gametext.text = "<html><center>" + game.currentLocation.description
+
+        val image = game.currentLocation.imageFile
+        val icon = ImageIcon(ClassLoader.getSystemResource(image))
+
+        piclable.icon = icon
 
         if (game.currentLocation.death == true) {
 
-            leftButton.isEnabled = false
-            rightButton.isEnabled = false
-            returnButton.isEnabled = true
+            leftButton.isVisible = false
+            rightButton.isVisible = false
+            returnButton.isVisible = true
 
         }
         else{
-            returnButton.isEnabled = false
-            rightButton.isEnabled = true
-            leftButton.isEnabled = true
+            returnButton.isVisible = false
+            rightButton.isVisible = true
+            leftButton.isVisible = true
         }
 
 
-        end.dissplay()
+
 
     }
 
@@ -280,71 +290,3 @@ class MainWindow(val game: Game) {
  */
 
 
-class End(val owner: MainWindow, val game: Game) {
-    private val dialog = JDialog(owner.frame, "Look", false)
-    private val panel = JPanel().apply { layout = null }
-
-    private val win = JLabel()
-
-
-
-    init {
-        setupLayout()
-        setupStyles()
-
-        setupWindow()
-        dissplay()
-
-    }
-
-    private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(240, 180)
-
-        win.setBounds(30, 30, 180, 60)
-
-
-
-        panel.add(win)
-
-
-    }
-
-    private fun setupStyles() {
-        win.font = Font(Font.SANS_SERIF, Font.PLAIN, 16)
-
-
-    }
-
-    private fun setupWindow() {
-        dialog.isResizable = false                              // Can't resize
-        dialog.defaultCloseOperation = JDialog.HIDE_ON_CLOSE    // Hide upon window close
-        dialog.contentPane = panel                              // Main content panel
-        dialog.pack()
-    }
-
-
-
-
-
-    fun dissplay() {
-        // Use app properties to display state
-        win.text = "<html>User: ${game.currentLocation}</html>"
-
-
-
-
-
-
-
-    }
-
-    fun show() {
-        val ownerBounds = owner.frame.bounds          // get location of the main window
-        dialog.setLocation(                           // Position next to main window
-            ownerBounds.x + ownerBounds.width + 10,
-            ownerBounds.y
-        )
-
-        dialog.isVisible = true
-    }
-}
