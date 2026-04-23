@@ -12,16 +12,26 @@ class Location(
     val imageFile:String,
     var death: Boolean = false
 ){
-    var left:Location? = null
-    var right:Location? = null
+    var west:Location? = null
+    var east:Location? = null
+    var north:Location? = null
+    var South:Location? = null
 
-    fun connectRight(location: Location) {
-        right = location
+    fun connectEast(location: Location) {
+        east = location
 
     }
-    fun connectLeft(location: Location) {
-        left = location
+    fun connectWest(location: Location) {
+        west = location
     }
+    fun connectnorth(location: Location) {
+        north = location
+    }
+    fun connectSouth(location: Location) {
+        South = location
+    }
+
+
 
 }
 
@@ -89,34 +99,40 @@ class Game {
         places.add(fox)
 
         //connecting locations togiver left or right -------------------------------
-//        nest.connectRight(sand)
-        nest.connectLeft(grass)
-        sand.connectRight(lose)
-        sand.connectLeft(lose)
-        grass.connectLeft(tree)
-        grass.connectRight(log)
-        tree.connectLeft(bigTree)
-        tree.connectRight(log)
-        bigTree.connectLeft(fox)
-        bigTree.connectRight(log)
-        log.connectRight(Nest)
-        log.connectLeft(bigTree)
-        Nest.connectLeft(grass)
-        Nest.connectRight(beach)
-        beach.connectLeft(lose)
-        beach.connectRight(water)
-        water.connectLeft(beach)
-        water.connectRight(win)
+        nest.connectEast(sand)
+        nest.connectWest(grass)
+        sand.connectEast(lose)
+        sand.connectWest(lose)
+        grass.connectWest(tree)
+        grass.connectEast(log)
+        tree.connectWest(bigTree)
+        tree.connectEast(log)
+        bigTree.connectWest(fox)
+        bigTree.connectEast(log)
+        log.connectEast(Nest)
+        log.connectWest(bigTree)
+        Nest.connectWest(grass)
+        Nest.connectEast(beach)
+        beach.connectWest(lose)
+        beach.connectEast(water)
+        water.connectWest(beach)
+        water.connectEast(win)
         //-------------------------------------------------------------------------
 
 
         currentLocation = nest
     }
     fun moveLeft() {
-        currentLocation = currentLocation.left!!
+        currentLocation = currentLocation.west!!
     }
     fun moveRight() {
-        currentLocation = currentLocation.right!!
+        currentLocation = currentLocation.east!!
+    }
+    fun moveSouth(){
+        currentLocation = currentLocation.South!!
+    }
+    fun moveNorth(){
+        currentLocation = currentLocation.north!!
     }
     fun moveHome() {
         currentLocation = places[0]
@@ -142,8 +158,10 @@ class MainWindow(val game: Game) {
     private val gametext = JLabel("")
     private val piclable =JLabel()
 
-    private val leftButton = JButton("go left")
-    private val rightButton = JButton("go right")
+    private val westButton = JButton("go left")
+    private val eastButton = JButton("go right")
+    private val southButton = JButton("go south")
+    private val northButton = JButton("go north")
     private val returnButton = JButton("return to start")
 
 
@@ -165,8 +183,10 @@ class MainWindow(val game: Game) {
         titleLabel.setBounds(20, 20, 600, 50)
         gametext.setBounds( 20, 510, 600, 100)
         piclable.setBounds( 20, 90, 600, 480)
-        leftButton.setBounds(20, 630, 200, 50)
-        rightButton.setBounds(420, 630, 200, 50)
+        westButton.setBounds(20, 630, 200, 50)
+        eastButton.setBounds(420, 630, 200, 50)
+        southButton.setBounds(420, 650, 200, 50)
+        northButton.setBounds(420, 600, 200, 50)
         returnButton.setBounds(220, 630, 200, 50)
 
 
@@ -174,8 +194,10 @@ class MainWindow(val game: Game) {
         panel.add(titleLabel)
         panel.add(gametext)
         panel.add(piclable)
-        panel.add(leftButton)
-        panel.add(rightButton)
+        panel.add(westButton)
+        panel.add(eastButton)
+        panel.add(southButton)
+        panel.add(northButton)
         panel.add(returnButton)
 
 
@@ -193,11 +215,11 @@ class MainWindow(val game: Game) {
         piclable.horizontalAlignment = SwingConstants.CENTER
 
 
-        leftButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
-        leftButton.background = Color(0xcc00447)
+        westButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        westButton.background = Color(0xcc00447)
 
-        rightButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
-        rightButton.background = Color(0xcc00447)
+        eastButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        eastButton.background = Color(0xcc00447)
 
         returnButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
         returnButton.background = Color(0x0029CCFF)
@@ -218,29 +240,32 @@ class MainWindow(val game: Game) {
     }
 
     private fun setupActions() {
-        leftButton.addActionListener { handleLeftClick() }
-        rightButton.addActionListener { handleRightClick() }
+        westButton.addActionListener { handleLeftClick() }
+        eastButton.addActionListener { handleRightClick() }
+        southButton.addActionListener { handleSouthClick() }
+        northButton.addActionListener { handleNorthClick() }
         returnButton.addActionListener { handleClick()}
 
     }
 
     private fun handleLeftClick() {
-
         game.moveLeft()
         updateUI()
-
-
     }
 
     private fun handleRightClick() {
         game.moveRight()
-
-
         updateUI()
-
-
-
     }
+    private fun handleNorthClick() {
+        game.moveNorth()
+        updateUI()
+    }
+    private fun handleSouthClick() {
+        game.moveSouth()
+        updateUI()
+    }
+
     private fun handleClick() {
         game.moveHome()
 
@@ -259,18 +284,24 @@ class MainWindow(val game: Game) {
 
         if (game.currentLocation.death == true) {
 
-            leftButton.isVisible = false
-            rightButton.isVisible = false
+            westButton.isVisible = false
+            eastButton.isVisible = false
+            southButton.isVisible = false
+            northButton.isVisible = false
             returnButton.isVisible = true
 
         }
         else{
             returnButton.isVisible = false
-            rightButton.isVisible = true
-            leftButton.isVisible = true
+            eastButton.isVisible = true
+            westButton.isVisible = true
+            southButton.isVisible = true
+            northButton.isVisible = true
 
-            rightButton.isEnabled = game.currentLocation.right != null
-            leftButton.isEnabled = game.currentLocation.left != null
+            eastButton.isEnabled = game.currentLocation.east != null
+            westButton.isEnabled = game.currentLocation.west != null
+            southButton.isEnabled = game.currentLocation.South != null
+            northButton.isEnabled = game.currentLocation.north != null
         }
 
 
