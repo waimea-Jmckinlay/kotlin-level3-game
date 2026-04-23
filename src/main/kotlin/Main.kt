@@ -60,17 +60,17 @@ class Game {
 
     init {
         //making locations-------------------------------------------------------
-        val log = Location("Grubby log","it's horrible in here wet and slim... whats that?", "images/log.png")
+        val log = Location("Grubby log","it's horrible in here wet and slimy... whats that?", "images/log.png")
         val beach = Location("Beach", " you see the water but your not there yet", "images/beach.png")
         val grass = Location("open plain", " a lot of grass and bees", "images/grass.png")
-        val nest = Location("nest", "a bunch of cracked eggs, you see the oceon and lots of seagulls lets not go that way right now", "images/nest.png")
-        val Nest = Location("nest", "a bunch of cracked eggs, the oceon is as you rember it from before but theirs a lot less seagulls", "images/nest.png")
-        val win = Location("oceon", " you made it to the oceon play again?", "images/ocean.png", true)
-        val lose = Location("not the oceon","you died seagulls, gotta hate them", "images/log.png", true)
+        val nest = Location("nest", "a bunch of cracked eggs, you see the ocean and lots of seagulls lets not go that way right now", "images/nest.png")
+        val Nest = Location("nest", "a bunch of cracked eggs, the ocean is as you remember it from before but theirs a lot less seagulls", "images/nest.png")
+        val win = Location("ocean", " you made it to the ocean play again?", "images/ocean.png", true)
+        val lose = Location("not the ocean","you died seagulls, gotta hate them", "images/lose.png", true)
         val water = Location("water", "a lot of water all most there", "images/water.png")
         val tree = Location("tree", " A very tall tree or are you just very small you can hear foxes", "images/tree.png")
         val sand = Location("sand and seagulls","this was a bad idea right now ", "images/sand.png" )
-        val bigTree = Location("bigTree", " this one is much bigger that you ", "images/biggerTree.png" )
+        val bigTree = Location("bigTree", " this one is very big could be home for other animals  ", "images/biggerTree.png" )
         val fox = Location("fox","you where eaten by the fox", "images/fox.png",true)
 
         //adding to list ----------------------------------------------------------
@@ -89,7 +89,7 @@ class Game {
         places.add(fox)
 
         //connecting locations togiver left or right -------------------------------
-        nest.connectRight(sand)
+//        nest.connectRight(sand)
         nest.connectLeft(grass)
         sand.connectRight(lose)
         sand.connectLeft(lose)
@@ -101,8 +101,8 @@ class Game {
         bigTree.connectRight(log)
         log.connectRight(Nest)
         log.connectLeft(bigTree)
-        Nest.connectLeft(beach)
-        Nest.connectRight(grass)
+        Nest.connectLeft(grass)
+        Nest.connectRight(beach)
         beach.connectLeft(lose)
         beach.connectRight(water)
         water.connectLeft(beach)
@@ -268,6 +268,9 @@ class MainWindow(val game: Game) {
             returnButton.isVisible = false
             rightButton.isVisible = true
             leftButton.isVisible = true
+
+            rightButton.isEnabled = game.currentLocation.right != null
+            leftButton.isEnabled = game.currentLocation.left != null
         }
 
 
