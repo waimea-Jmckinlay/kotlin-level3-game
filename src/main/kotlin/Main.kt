@@ -170,7 +170,7 @@ class Game {
         //
         bigTree.connectEast(footprints)
         bigTree.connectWest(bush)
-        //
+        // don't forgut to make this line
         footprints.connectnorth(Ruins)
         footprints.connectsouth(fox)
         footprints.connectWest(forest)
