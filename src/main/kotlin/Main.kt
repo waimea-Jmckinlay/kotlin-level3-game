@@ -24,10 +24,10 @@ class Location(
     fun connectWest(location: Location) {
         west = location
     }
-    fun connectnorth(location: Location) {
+    fun connectNorth(location: Location) {
         north = location
     }
-    fun connectsouth(location: Location) {
+    fun connectSouth(location: Location) {
         South = location
     }
 
@@ -71,34 +71,38 @@ class Game {
     init {
         //making locations-------------------------------------------------------
         val log = Location("Grubby log","it's horrible in here wet and slimy... whats that?", "images/log.png")
-        val beach = Location("Beach", " you see the water but your not there yet", "images/beach.png")
+        val beach = Location("Beach", " you see the water but your not there yet but you ar also pass the seagulls", "images/beach.png")
         val grass = Location("open plain", " a lot of grass and bees you don't fell like turning back", "images/grass.png")
         val grass2 = Location("open plain", " a lot of grass and bees", "images/grass.png")
         val grass3 = Location("open plain", " a lot of garss", "images/grass.png")
+        val grass4 = Location("grass", "seams like your out of the forest ", "images/grass.png")
         val nest = Location("nest", "a bunch of cracked eggs, you see the ocean and lots of seagulls lets not go that way right now", "images/nest.png")
-        val Nest = Location("nest", "a bunch of cracked eggs, the ocean is as you remember it from before but theirs a lot less seagulls", "images/nest.png")
-        val win = Location("ocean", " you made it to the ocean play again?", "images/ocean.png", true)
+        val beachSide = Location("beach side", " the beach looks the same as before but theirs a lot less seagulls and a log maybe that can help you (no log in image I couldn't find one that worked with what I wanted)", "images/beachside.png")
+        val win = Location("ocean", " you made it to the ocean. had fun? play again?", "images/ocean.png", true)
         val lose = Location("not the ocean","you died seagulls, gotta hate them", "images/lose.png", true)
         val water = Location("water", "a lot of water all most there", "images/water.png")
         val tree = Location("tree", " A very tall tree or are you just very small", "images/tree.png")
         val tree2 = Location ("tree", "A very tall tree or are you just very small it stands in your way not letting you pass", "images/tree.png")
         val pond = Location ("pond", "A pond of water a not salty enough for you but you can try anyway ", "images/pond.png")
         val sand = Location("sand and seagulls","this was a bad idea right now ", "images/sand.png" )
-        val bigTree = Location("bigTree", " this one is very big could be home for other animals  ", "images/biggerTree.png" )
-        val fox = Location("fox","you where eaten by the fox", "images/fox.png",true)
+        val sand2 = Location("sand and seagulls","their are still seaguls on the beach but not as many you could make a run for it ", "images/sand.png")
+        val bigTree = Location("bigTree", " this one is very big could be home for other animals be cerfull of foxes  ", "images/biggerTree.png" )
+        val fox = Location("fox","you where eaten by the fox they like sneaking up on things be cerfull where you move next time ", "images/fox.png",true)
         val salt = Location("salt"," some turtles can live here but your a Marine Turtle so over time you got sick a died", "images/pond.png",true)
         val footprints = Location( "it's a foot","a muddy footprint lays in the ground fresh and wet","images/footprint.png" )
         val bush = Location("bush", "a berries bush tasty but where are the berries?", "images/bush.png")
+        val bush2 = Location("bush again","this looks just like the last one how odd", "images/bush.png" )
         val forest = Location ("Forest","a dark forest this is not ment to be where you are going", "images/forest.png")
         val forest2 = Location ("who knows where this is?","your lost you want to go back but where is back excaly?", "images/forest.png",true)
         val Ruins = Location("Ruins","a biunch of standing stones and doorways the foot prints led here.", "images/ruins.png")
         val Backpack = Location ("Backpack", "someone must of been here a long time ago", "images/backpack.png")
+        val Bear = Location ("It's a bear", " you got step on you he didn't mean too he just didn't see you", "images/bear.png")
         //get a backpack image in the forest
 
         //adding to list ----------------------------------------------------------
 
         places.add(nest)
-        places.add(Nest)
+        places.add(beachSide)
 
         places.add(log)
 
@@ -107,17 +111,23 @@ class Game {
         places.add(grass)
         places.add(grass2)
         places.add(grass3)
+        places.add(grass4)
 
         places.add(win)
         places.add(lose)
         places.add(fox)
 
         places.add(water)
+        places.add(salt)
 
         places.add(tree)
         places.add(tree2)
 
+        places.add(bush)
+        places.add(bush2)
+
         places.add(sand)
+        places.add(sand2)
 
         places.add(bigTree)
 
@@ -129,59 +139,91 @@ class Game {
 
         places.add(Ruins)
 
+        places.add(Backpack)
+
+        places.add(Bear)
+
 
 
         //connecting locations togiver left or right -------------------------------
-        nest.connectnorth(sand)
+        nest.connectNorth(sand)
         nest.connectEast(sand)
         nest.connectWest(sand)
-        nest.connectsouth(tree)
+        nest.connectSouth(tree)
         //
-        sand.connectnorth(lose)
+        sand.connectNorth(lose)
         sand.connectEast(lose)
         sand.connectWest(lose)
-        sand.connectsouth(nest)
+        sand.connectSouth(nest)
         //
-        tree.connectsouth(nest)
-        tree.connectnorth(grass)
+        tree.connectSouth(nest)
+        tree.connectNorth(grass)
         tree.connectWest(grass2)
         tree.connectEast(grass3)
         //
         grass.connectWest(grass2)
         grass.connectEast(grass3)
-        grass.connectnorth(bigTree)
+        grass.connectNorth(bigTree)
         //
         grass2.connectEast(bigTree)
         grass2.connectWest(tree)
-        grass2.connectnorth(tree2)
-        grass2.connectsouth(grass)
+        grass2.connectNorth(tree2)
+        grass2.connectSouth(grass)
         //
         tree2.connectWest(fox)
         tree2.connectEast(bigTree)
         //
         grass3.connectWest(bigTree)
-        grass3.connectnorth(pond)
+        grass3.connectNorth(pond)
         grass3.connectEast(tree)
-        grass3.connectsouth(grass)
+        grass3.connectSouth(grass)
         //
         pond.connectWest(bigTree)
         pond.connectEast(tree)
-        pond.connectnorth(salt)
+        pond.connectNorth(salt)
         //
         bigTree.connectEast(footprints)
         bigTree.connectWest(bush)
-        // don't forgut to make this line
-        footprints.connectnorth(Ruins)
-        footprints.connectsouth(fox)
+        // don't forgut to make this line/ branch
+        bush.connectSouth(fox)
+        bush.connectNorth(bush2)
+        bush.connectEast(forest)
+        bush.connectWest(cave)
+        //
+        bush2.connectEast(forest)
+        bush2.connectWest(cave)
+        bush.connectNorth(Bear)
+
+        footprints.connectNorth(Ruins)
+        footprints.connectSouth(fox)
         footprints.connectWest(forest)
         //
-        forest.connectsouth(fox)
-        forest.connectnorth(forest2)
+        forest.connectSouth(fox)
+        forest.connectNorth(forest2)
         //
-        Ruins.connectnorth(fox)
-        Ruins.connectsouth(footprints)
+        Ruins.connectNorth(fox)
+        Ruins.connectSouth(footprints)
         Ruins.connectWest(forest)
         Ruins.connectEast(Backpack)
+        //
+        Backpack.connectNorth(grass4)
+        //
+        grass4.connectNorth(beachSide)
+        //
+        beachSide.connectNorth(sand2)
+        //
+        sand2.connectNorth(lose)
+        sand2.connectSouth(beachSide)
+        sand2.connectWest(log)
+        sand2.connectEast(lose)
+        //
+        log.connectEast(beach)
+        log.connectSouth(lose)
+        //
+        beach.connectNorth(water)
+        //
+        water.connectNorth(win)
+
         //-------------------------------------------------------------------------
 
 
