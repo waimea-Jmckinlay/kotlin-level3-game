@@ -77,7 +77,7 @@ class Game {
         val grass3 = Location("open plain", " a lot of garss", "images/grass.png")
         val grass4 = Location("grass", "seams like your out of the forest ", "images/grass.png")
         val nest = Location("nest", "a bunch of cracked eggs, you see the ocean and lots of seagulls lets not go that way right now", "images/nest.png")
-        val beachSide = Location("beach side", " the beach looks the same as before but theirs a lot less seagulls and a log maybe that can help you (no log in image I couldn't find one that worked with what I wanted)", "images/beachside.png")
+        val beachSide = Location("beach side", " the beach looks the same as before but theirs a lot less seagulls and a log maybe that can help you ", "images/beachside.png")
         val win = Location("ocean", " you made it to the ocean. had fun? play again?", "images/ocean.png", true)
         val lose = Location("not the ocean","you died seagulls, gotta hate them", "images/lose.png", true)
         val water = Location("water", "a lot of water all most there", "images/water.png")
@@ -90,14 +90,16 @@ class Game {
         val fox = Location("fox","you where eaten by the fox they like sneaking up on things be cerfull where you move next time ", "images/fox.png",true)
         val salt = Location("salt"," some turtles can live here but your a Marine Turtle so over time you got sick a died", "images/pond.png",true)
         val footprints = Location( "it's a foot","a muddy footprint lays in the ground fresh and wet","images/footprint.png" )
-        val bush = Location("bush", "a berries bush tasty but where are the berries?", "images/bush.png")
+        val bush = Location("bush", "a berries bush tasty but where are the berries do we investagate?", "images/bush.png")
         val bush2 = Location("bush again","this looks just like the last one how odd", "images/bush.png" )
         val forest = Location ("Forest","a dark forest this is not ment to be where you are going", "images/forest.png")
         val forest2 = Location ("who knows where this is?","your lost you want to go back but where is back excaly?", "images/forest.png",true)
         val Ruins = Location("Ruins","a biunch of standing stones and doorways the foot prints led here.", "images/ruins.png")
         val Backpack = Location ("Backpack", "someone must of been here a long time ago", "images/backpack.png")
-        val Bear = Location ("It's a bear", " you got step on you he didn't mean too he just didn't see you", "images/bear.png")
-        //get a backpack image in the forest
+        val Bear = Location ("It's a bear", " you got step on you he didn't mean too he just didn't see you shouldn't of investagate", "images/bear.png",true)
+        val cave = Location("A dark cave","A big cave their was no way you can gety pass it and it's very scarry", "images/cave.png")
+        val cave2 = Location (" a dark place ","it's very cold and you skin frezze . your stuck in place and will died soon but at lest the glow worms on the roof looks cool", "images/cave2.png",true)
+
 
         //adding to list ----------------------------------------------------------
 
@@ -142,6 +144,8 @@ class Game {
         places.add(Backpack)
 
         places.add(Bear)
+        places.add(cave)
+        places.add(cave2)
 
 
 
@@ -184,7 +188,7 @@ class Game {
         //
         bigTree.connectEast(footprints)
         bigTree.connectWest(bush)
-        // don't forgut to make this line/ branch
+
         bush.connectSouth(fox)
         bush.connectNorth(bush2)
         bush.connectEast(forest)
@@ -193,6 +197,9 @@ class Game {
         bush2.connectEast(forest)
         bush2.connectWest(cave)
         bush.connectNorth(Bear)
+
+        cave.connectNorth(cave2)
+        cave.connectSouth(fox)
 
         footprints.connectNorth(Ruins)
         footprints.connectSouth(fox)
