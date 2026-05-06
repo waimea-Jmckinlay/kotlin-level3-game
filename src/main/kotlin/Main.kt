@@ -6,16 +6,19 @@ import javax.swing.*
 
 
 class Location(
-
+//setup location making
     val name:String,
     val description:String,
     val imageFile:String,
     var death: Boolean = false
 ){
+ //   which way you can move from each location
     var west:Location? = null
     var east:Location? = null
     var north:Location? = null
     var South:Location? = null
+
+    //making moving work
 
     fun connectEast(location: Location) {
         east = location
@@ -99,6 +102,8 @@ class Game {
         val Bear = Location ("It's a bear", " you got step on you he didn't mean too he just didn't see you shouldn't of investagate", "images/bear.png",true)
         val cave = Location("A dark cave","A big cave their was no way you can gety pass it and it's very scarry", "images/cave.png")
         val cave2 = Location (" a dark place ","it's very cold and you skin frezze . your stuck in place and will died soon but at lest the glow worms on the roof looks cool", "images/cave2.png",true)
+        val sand3 = Location ("sand and seagulls","this was a bad idear right now ","images/sand.png" )
+        val sand4 = Location (" sand and seagulls","this was a bad idear right now ","images/sand.png" )
 
 
         //adding to list ----------------------------------------------------------
@@ -130,6 +135,8 @@ class Game {
 
         places.add(sand)
         places.add(sand2)
+        places.add(sand3)
+        places.add(sand4)
 
         places.add(bigTree)
 
@@ -151,9 +158,19 @@ class Game {
 
         //connecting locations togiver left or right -------------------------------
         nest.connectNorth(sand)
-        nest.connectEast(sand)
-        nest.connectWest(sand)
+        nest.connectEast(sand3)
+        nest.connectWest(sand4)
         nest.connectSouth(tree)
+        //
+        sand3.connectNorth(lose)
+        sand3.connectEast(grass2)
+        sand3.connectWest(lose)
+        sand3.connectSouth(nest)
+        //
+        sand4.connectNorth(lose)
+        sand4.connectWest(grass3)
+        sand4.connectSouth(nest)
+        sand4.connectEast(lose)
         //
         sand.connectNorth(lose)
         sand.connectEast(lose)
@@ -170,20 +187,20 @@ class Game {
         grass.connectNorth(bigTree)
         //
         grass2.connectEast(bigTree)
-        grass2.connectWest(tree)
+        grass2.connectWest(nest)
         grass2.connectNorth(tree2)
         grass2.connectSouth(grass)
         //
-        tree2.connectWest(fox)
+        tree2.connectWest(sand3)
         tree2.connectEast(bigTree)
         //
         grass3.connectWest(bigTree)
         grass3.connectNorth(pond)
-        grass3.connectEast(tree)
+        grass3.connectEast(nest)
         grass3.connectSouth(grass)
         //
         pond.connectWest(bigTree)
-        pond.connectEast(tree)
+        pond.connectEast(sand4)
         pond.connectNorth(salt)
         //
         bigTree.connectEast(footprints)
@@ -216,8 +233,10 @@ class Game {
         Backpack.connectNorth(grass4)
         //
         grass4.connectNorth(beachSide)
+        grass4.connectSouth(Backpack)
         //
         beachSide.connectNorth(sand2)
+        beachSide.connectSouth(grass4)
         //
         sand2.connectNorth(lose)
         sand2.connectSouth(beachSide)
@@ -226,6 +245,7 @@ class Game {
         //
         log.connectEast(beach)
         log.connectSouth(lose)
+        log.connectWest(lose)
         //
         beach.connectNorth(water)
         //
@@ -233,7 +253,7 @@ class Game {
 
         //-------------------------------------------------------------------------
 
-
+// having the player move between location and setting the starting the first location as the nest
         currentLocation = nest
     }
     fun moveLeft() {
@@ -254,8 +274,6 @@ class Game {
 
 
 
-
-
 }
 
 
@@ -272,10 +290,10 @@ class MainWindow(val game: Game) {
     private val gametext = JLabel("")
     private val piclable =JLabel()
 
-    private val westButton = JButton("go left")
-    private val eastButton = JButton("go right")
-    private val southButton = JButton("go backwords")
-    private val northButton = JButton("go forward")
+    private val westButton = JButton("turn and go left")
+    private val eastButton = JButton("turn and go right")
+    private val southButton = JButton("turn and go backwords")
+    private val northButton = JButton("turn and go forward")
     private val returnButton = JButton("return to start")
 
 
@@ -290,6 +308,8 @@ class MainWindow(val game: Game) {
         setupWindow()
         updateUI()
     }
+
+    //layout all the buttions and images
 
     private fun setupLayout() {
         panel.preferredSize = java.awt.Dimension(640, 700)
@@ -316,7 +336,7 @@ class MainWindow(val game: Game) {
 
 
     }
-
+// make things look nice
     private fun setupStyles() {
         titleLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 50)
         titleLabel.horizontalAlignment = SwingConstants.CENTER
@@ -358,7 +378,7 @@ class MainWindow(val game: Game) {
         frame.pack()
         frame.setLocationRelativeTo(null)                   // Centre on the screen
     }
-
+// makes moving works
     private fun setupActions() {
         westButton.addActionListener { handleLeftClick() }
         eastButton.addActionListener { handleRightClick() }
@@ -428,7 +448,7 @@ class MainWindow(val game: Game) {
 
 
     }
-
+// function that shows the frame
     fun show() {
         frame.isVisible = true
     }
