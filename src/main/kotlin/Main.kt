@@ -112,9 +112,9 @@ class Game {
         val bush2 = Location("bush again","this looks just like the last one how odd", "images/bush.png" )
         val forest = Location ("Forest","a dark forest this is not ment to be where you are going", "images/forest.png")
         val forest2 = Location ("who knows where this is?","your lost you want to go back but where is back excaly?", "images/forest.png",true)
-        val Ruins = Location("Ruins","a biunch of standing stones and doorways the foot prints led here.", "images/ruins.png")
-        val Backpack = Location ("Backpack", "someone must of been here a long time ago", "images/backpack.png")
-        val Bear = Location ("It's a bear", " you got step on you he didn't mean too he just didn't see you shouldn't of investagate", "images/bear.png",true)
+        val ruins = Location("Ruins","a biunch of standing stones and doorways the foot prints led here.", "images/ruins.png")
+        val backpack = Location ("Backpack", "someone must of been here a long time ago", "images/backpack.png")
+        val bear = Location ("It's a bear", " you got step on you he didn't mean too he just didn't see you shouldn't of investagate", "images/bear.png",true)
         val cave = Location("A dark cave","A big cave their was no way you can gety pass it and it's very scarry", "images/cave.png")
         val cave2 = Location (" a dark place ","it's very cold and you skin frezze . your stuck in place and will died soon but at lest the glow worms on the roof looks cool", "images/cave2.png",true)
         val sand3 = Location ("sand and seagulls","this was a bad idear right now ","images/sand.png" )
@@ -161,11 +161,11 @@ class Game {
         places.add(forest)
         places.add(forest2)
 
-        places.add(Ruins)
+        places.add(ruins)
 
-        places.add(Backpack)
+        places.add(backpack)
 
-        places.add(Bear)
+        places.add(bear)
         places.add(cave)
         places.add(cave2)
 
@@ -228,27 +228,27 @@ class Game {
         //
         bush2.connectEast(forest)
         bush2.connectWest(cave)
-        bush.connectNorth(Bear)
+        bush.connectNorth(bear)
 
         cave.connectNorth(cave2)
         cave.connectSouth(fox)
 
-        footprints.connectNorth(Ruins)
+        footprints.connectNorth(ruins)
         footprints.connectSouth(fox)
         footprints.connectWest(forest)
         //
         forest.connectSouth(fox)
         forest.connectNorth(forest2)
         //
-        Ruins.connectNorth(fox)
-        Ruins.connectSouth(footprints)
-        Ruins.connectWest(forest)
-        Ruins.connectEast(Backpack)
+        ruins.connectNorth(fox)
+        ruins.connectSouth(footprints)
+        ruins.connectWest(forest)
+        ruins.connectEast(backpack)
         //
-        Backpack.connectNorth(grass4)
+        backpack.connectNorth(grass4)
         //
         grass4.connectNorth(beachSide)
-        grass4.connectSouth(Backpack)
+        grass4.connectSouth(backpack)
         //
         beachSide.connectNorth(sand2)
         beachSide.connectSouth(grass4)
@@ -305,10 +305,10 @@ class MainWindow(val game: Game) {
     private val gametext = JLabel("")
     private val piclable =JLabel()
 
-    private val westButton = JButton("turn and go left")
-    private val eastButton = JButton("turn and go right")
-    private val southButton = JButton("turn and go backwords")
-    private val northButton = JButton("turn and go forward")
+    private val westButton = JButton(" go left")
+    private val eastButton = JButton(" go right")
+    private val southButton = JButton(" go backwords")
+    private val northButton = JButton(" go forward")
     private val returnButton = JButton("return to start")
 
 

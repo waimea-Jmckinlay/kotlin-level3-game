@@ -3,9 +3,13 @@
 ![Map](screenshots/map.png)
 
 
-the white squares are the places you can move the black lines is path to get to 
+The white squares are the places you can move the black lines is path to get to 
 each square and the read are paths that kill you note some paths kill you for trying to move backwords
 and other times baclwords isn't a choice and the path is only their for moving forward
+
+also wining and losing is done the same way because when you die you have to restart and 
+if you win, you win and get to play the game again but their no scoring in that game because it's a maze
+you get out or you don't
 
 ---
 
@@ -62,9 +66,9 @@ I will just be moving around looking for movments that seam out of place
 
 [View video here](screenshots/testingmoving.mp4)
 
-some of the movment is a little odd when I go right after going backwords at the start and then go right again to get back 
-to where I was When I went backwords is odd and so is having a fox kill you on the left side in sted of somthing more fitting
-like a seagul or it could take you back to the nest.
+some of the movement is a little odd when I go right after going backwards at the start and then go right again to get back 
+to where I was When I went backwards is odd and so is having a fox kill you on the left side in sted of somthing more fitting
+like a seagull or it could take you back to the nest.
 
 ### fixed the starting spaces (the others don't need fixing)
 
