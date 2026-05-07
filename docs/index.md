@@ -1,6 +1,6 @@
-# PROJECT NAME HERE
+# Turtle maze
 
-by YOUR NAME HERE
+by Jayden Mckinlay
 
 ---
 

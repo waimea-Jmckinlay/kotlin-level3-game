@@ -1,3 +1,18 @@
+/**
+ * =====================================================================
+ * Programming Project for NCEA Level 3, Standard 91906
+ * ---------------------------------------------------------------------
+ * Project Name:   Turtle maze
+ * Project Author: Jayden Mckinlay
+ * GitHub Repo:    GITHUB REPO URL HERE
+ * ---------------------------------------------------------------------
+ * Notes: In this game you are a newborn turtle and need to find a safe way to the
+ * ocean without being eaten
+ * PROJECT NOTES HERE
+ * =====================================================================
+ */
+
+
 import com.formdev.flatlaf.themes.FlatMacDarkLaf
 import java.awt.Color
 import java.awt.Font
@@ -73,13 +88,13 @@ class Game {
 
     init {
         //making locations-------------------------------------------------------
-        val log = Location("Grubby log","it's horrible in here wet and slimy... whats that?", "images/log.png")
-        val beach = Location("Beach", " you see the water but your not there yet but you ar also pass the seagulls", "images/beach.png")
+        val log = Location("Grubby log","oh a log maybe we can use it as cover (the log is to your right despite what the image shows and pertend that you are on a beach)", "images/log.png")
+        val beach = Location("Beach", " you see the water but your not there yet but you are pass the seagulls though go for it ", "images/beach.png")
         val grass = Location("open plain", " a lot of grass and bees you don't fell like turning back", "images/grass.png")
         val grass2 = Location("open plain", " a lot of grass and bees", "images/grass.png")
         val grass3 = Location("open plain", " a lot of garss", "images/grass.png")
         val grass4 = Location("grass", "seams like your out of the forest ", "images/grass.png")
-        val nest = Location("nest", "a bunch of cracked eggs, you see the ocean and lots of seagulls lets not go that way right now", "images/nest.png")
+        val nest = Location("nest", "a bunch of cracked eggs, you see the ocean and lots of seagulls lets not go that way right now but we do need to find a way to the ocean lets see what other ways we can find ", "images/nest.png")
         val beachSide = Location("beach side", " the beach looks the same as before but theirs a lot less seagulls and a log maybe that can help you ", "images/beachside.png")
         val win = Location("ocean", " you made it to the ocean. had fun? play again?", "images/ocean.png", true)
         val lose = Location("not the ocean","you died seagulls, gotta hate them", "images/lose.png", true)
@@ -283,7 +298,7 @@ class Game {
  * @param app the app state object
  */
 class MainWindow(val game: Game) {
-    val frame = JFrame("WINDOW TITLE")
+    val frame = JFrame("")
     private val panel = JPanel().apply { layout = null }
 
     private val titleLabel = JLabel("Turtle game")
@@ -378,7 +393,7 @@ class MainWindow(val game: Game) {
         frame.pack()
         frame.setLocationRelativeTo(null)                   // Centre on the screen
     }
-// makes moving works
+// makes moving works in all diractions
     private fun setupActions() {
         westButton.addActionListener { handleLeftClick() }
         eastButton.addActionListener { handleRightClick() }
@@ -412,7 +427,7 @@ class MainWindow(val game: Game) {
         updateUI()
     }
 
-
+ // shows when you move locations
     fun updateUI() {
         titleLabel.text = game.currentLocation.name
         gametext.text = "<html><center>" + game.currentLocation.description
@@ -422,6 +437,7 @@ class MainWindow(val game: Game) {
 
         piclable.icon = icon
 
+     //if the player died the movement buttons disappear and are replaced with the restart button
         if (game.currentLocation.death == true) {
 
             westButton.isVisible = false
@@ -438,6 +454,7 @@ class MainWindow(val game: Game) {
             southButton.isVisible = true
             northButton.isVisible = true
 
+            //only move if their is a path that way else button disable
             eastButton.isEnabled = game.currentLocation.east != null
             westButton.isEnabled = game.currentLocation.west != null
             southButton.isEnabled = game.currentLocation.South != null

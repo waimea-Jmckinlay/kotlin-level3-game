@@ -55,17 +55,7 @@ move out of boundaries should lead to death of be dissable
 ---
 
 
-## Example Test Name
-
-Example test description. Example test description.
-### Test Data To Use
-
-Details of test data and reasons for selection.
-### Expected Test Result
-
-Statement detailing what should happen.
-
----
+[The map](images/map.png)
 
 
 ## Example Test Name

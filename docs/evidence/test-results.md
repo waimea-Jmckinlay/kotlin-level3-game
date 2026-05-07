@@ -1,3 +1,15 @@
+# The map
+
+![Map](screenshots/map.png)
+
+
+the white squares are the places you can move the black lines is path to get to 
+each square and the read are paths that kill you note some paths kill you for trying to move backwords
+and other times baclwords isn't a choice and the path is only their for moving forward
+
+---
+
+
 # Results of Testing
 
 The test results show the actual outcome of the testing, following the [Test Plan](test-plan.md)
@@ -16,7 +28,7 @@ playing the game my self once diying once winning both should have the same outc
 
 ![](screenshots/gameplay.gif)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+it worked just as I though it would I was able to die and win and playagain and didn't get stuck anywhere
 
 ---
 
@@ -54,7 +66,7 @@ some of the movment is a little odd when I go right after going backwords at the
 to where I was When I went backwords is odd and so is having a fox kill you on the left side in sted of somthing more fitting
 like a seagul or it could take you back to the nest.
 
-### fixed 
+### fixed the starting spaces (the others don't need fixing)
 
 ![](screenshots/fixedMapAtStart.gif)
 
@@ -63,19 +75,5 @@ giving more ways to move of the beach without dying / killing the player.
 
 ------
 
-## Example Test Name
 
-Example test description.
-
-### Test Data Used
-
-Details of test data. Details of test data.
-
-### Test Result
-
-![example.png](screenshots/example.png)
-
-Comment on test result. Comment on test result.
-
----
 
