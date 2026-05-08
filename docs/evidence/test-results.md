@@ -70,7 +70,7 @@ some of the movement is a little odd when I go right after going backwards at th
 to where I was When I went backwards is odd and so is having a fox kill you on the left side in sted of somthing more fitting
 like a seagull or it could take you back to the nest.
 
-### fixed the starting spaces (the others don't need fixing)
+### fixed the starting spaces (the others don't need changing)
 
 ![](screenshots/fixedMapAtStart.gif)
 
